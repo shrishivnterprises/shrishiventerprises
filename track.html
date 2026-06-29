@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Track Your Order – Shri Shiv Enterprises</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,700&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --cream:#fdf6e9;--cream2:#f5ead6;--cream3:#ede0c8;
+  --navy:#0f2040;--navy2:#172d52;
+  --gold:#c8870a;--gold2:#e09b12;--gold3:#f5b730;
+  --text:#1a1a1a;--text2:#4a4a4a;--text3:#888;
+  --white:#fff;--radius:16px;--green:#16a34a;
+  --green-bg:#f0fdf4;--green-border:#bbf7d0;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);min-height:100vh}
+
+/* TOPBAR */
+.topbar{background:var(--navy);color:rgba(255,255,255,0.8);font-size:12px;padding:7px 16px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px}
+.topbar a{color:var(--gold3);text-decoration:none;font-weight:600}
+
+/* NAV */
+nav{background:var(--white);border-bottom:2px solid var(--gold3);padding:0 16px;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
+.nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.logo-circle{width:48px;height:48px;border-radius:10px;border:2px solid var(--gold3);background:var(--navy);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.logo-text h1{font-size:17px;font-weight:800;color:var(--navy);line-height:1.1}
+.logo-text span{font-size:10px;font-weight:700;color:var(--gold);letter-spacing:.1em;text-transform:uppercase}
+.back-btn{display:inline-flex;align-items:center;gap:6px;background:var(--cream2);color:var(--navy);border:1.5px solid var(--cream3);padding:8px 16px;border-radius:50px;font-size:13px;font-weight:600;text-decoration:none;transition:all .2s}
+.back-btn:hover{background:var(--cream3)}
+
+/* PAGE */
+.page{max-width:680px;margin:0 auto;padding:32px 16px 60px}
+.page-title-tag{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px;text-align:center}
+.page-title{font-family:'Playfair Display',serif;font-size:clamp(24px,5vw,34px);font-weight:800;color:var(--navy);text-align:center;margin-bottom:6px}
+.page-sub{font-size:14px;color:var(--text3);text-align:center;margin-bottom:28px}
+
+/* SEARCH BOX */
+.search-box{background:white;border-radius:var(--radius);padding:24px;box-shadow:0 2px 16px rgba(0,0,0,0.07);border:1px solid var(--cream3);margin-bottom:24px}
+.search-box h3{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.form-group{margin-bottom:14px}
+.form-label{font-size:12px;font-weight:700;color:var(--navy);margin-bottom:5px;display:block}
+.form-input{width:100%;padding:11px 14px;border:1.5px solid var(--cream3);border-radius:10px;font-size:14px;font-family:inherit;outline:none;background:var(--cream);color:var(--text);transition:border-color .2s}
+.form-input:focus{border-color:var(--navy);background:white}
+.track-btn{width:100%;padding:13px;background:var(--navy);color:white;font-size:14px;font-weight:700;border:none;border-radius:12px;cursor:pointer;font-family:inherit;transition:background .2s;display:flex;align-items:center;justify-content:center;gap:8px;margin-top:4px}
+.track-btn:hover{background:var(--navy2)}
+.track-btn:disabled{background:#ccc;cursor:not-allowed}
+.err-msg{background:#fef2f2;border:1px solid #fca5a5;border-radius:8px;padding:10px 14px;font-size:13px;color:#dc2626;margin-top:10px;display:none}
+
+/* ORDER RESULT */
+.order-result{display:none}
+.order-card{background:white;border-radius:var(--radius);box-shadow:0 2px 16px rgba(0,0,0,0.07);border:1px solid var(--cream3);overflow:hidden;margin-bottom:20px}
+.oc-header{background:var(--navy);color:white;padding:16px 20px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:8px}
+.oc-id{font-size:13px;font-weight:800;letter-spacing:.05em}
+.oc-date{font-size:11px;color:rgba(255,255,255,0.6);margin-top:2px}
+.status-pill{padding:5px 14px;border-radius:50px;font-size:12px;font-weight:800;letter-spacing:.03em;text-transform:uppercase}
+.status-Pending{background:#fef3c7;color:#92400e}
+.status-Processing{background:#dbeafe;color:#1e40af}
+.status-Shipped{background:#f3e8ff;color:#6b21a8}
+.status-Delivered{background:#dcfce7;color:#15803d}
+.status-Cancelled{background:#fee2e2;color:#b91c1c}
+.oc-body{padding:20px}
+.oc-section-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--gold);margin-bottom:10px}
+
+/* TRACKING STEPPER */
+.tracker{margin:24px 0}
+.steps{position:relative;padding-left:32px}
+.steps::before{content:'';position:absolute;left:10px;top:12px;bottom:12px;width:2px;background:var(--cream3)}
+.step{position:relative;margin-bottom:28px;padding-bottom:0}
+.step:last-child{margin-bottom:0}
+.step-dot{position:absolute;left:-32px;top:2px;width:22px;height:22px;border-radius:50%;border:2.5px solid var(--cream3);background:white;display:flex;align-items:center;justify-content:center;z-index:1;transition:all .3s}
+.step-dot.done{background:var(--green);border-color:var(--green)}
+.step-dot.active{background:var(--navy);border-color:var(--navy);box-shadow:0 0 0 4px rgba(15,32,64,0.12)}
+.step-dot.done .dot-inner{color:white;font-size:11px;font-weight:700}
+.step-dot.active .dot-inner{width:8px;height:8px;background:white;border-radius:50%;display:block}
+.step-dot .dot-inner{width:8px;height:8px;background:var(--cream3);border-radius:50%;display:block}
+.step-content{}
+.step-title{font-size:14px;font-weight:700;color:var(--text);margin-bottom:2px}
+.step-title.done-text{color:var(--green)}
+.step-title.active-text{color:var(--navy)}
+.step-title.pending-text{color:var(--text3)}
+.step-desc{font-size:12px;color:var(--text3);line-height:1.5}
+.step-time{font-size:11px;color:var(--gold);font-weight:600;margin-top:2px}
+
+/* ORDER ITEMS */
+.items-list{list-style:none}
+.item-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--cream3);font-size:13px}
+.item-row:last-child{border:none}
+.item-name{color:var(--text2);flex:1}
+.item-qty{color:var(--text3);margin:0 12px}
+.item-price{font-weight:700;color:var(--navy)}
+.total-row{display:flex;justify-content:space-between;padding:10px 0 0;font-size:15px;font-weight:800;color:var(--navy);border-top:2px solid var(--cream3);margin-top:6px}
+
+/* DELIVERY INFO */
+.info-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:4px}
+.info-item .info-label{font-size:11px;font-weight:700;color:var(--text3);text-transform:uppercase;letter-spacing:.05em;margin-bottom:3px}
+.info-item .info-val{font-size:13px;font-weight:600;color:var(--navy);line-height:1.4}
+.payment-badge{display:inline-flex;align-items:center;gap:4px;background:var(--cream2);border:1px solid var(--cream3);border-radius:50px;padding:4px 12px;font-size:12px;font-weight:700;color:var(--navy)}
+
+/* HELP BOX */
+.help-box{background:var(--navy);border-radius:14px;padding:20px 24px;color:white;text-align:center}
+.help-box h4{font-size:15px;font-weight:700;margin-bottom:6px}
+.help-box p{font-size:13px;color:rgba(255,255,255,0.65);margin-bottom:16px;line-height:1.6}
+.help-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.btn-wa{display:inline-flex;align-items:center;gap:6px;background:#25d366;color:white;font-weight:700;font-size:13px;padding:10px 20px;border-radius:50px;text-decoration:none}
+.btn-call{display:inline-flex;align-items:center;gap:6px;background:var(--gold3);color:var(--navy);font-weight:700;font-size:13px;padding:10px 20px;border-radius:50px;text-decoration:none}
+
+/* FOOTER */
+.footer-mini{background:var(--navy);color:rgba(255,255,255,0.4);text-align:center;padding:16px;font-size:12px;margin-top:40px}
+.footer-mini a{color:var(--gold3);text-decoration:none}
+
+/* WA FLOAT */
+.wa-float{position:fixed;bottom:20px;right:20px;z-index:150;width:52px;height:52px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,0.4);text-decoration:none}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <span>📍 41/1 Bajrang Vihar, Kanpur 208021</span>
+  <a href="tel:+916393539533">📞 +91 6393539533</a>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/" class="logo">
+      <div class="logo-circle"><img src="/imgs/logo.jpg" alt="Logo" style="width:100%;height:100%;object-fit:contain;border-radius:7px"/></div>
+      <div class="logo-text">
+        <h1>Shri Shiv Enterprises</h1>
+        <span>Notebook & Register Manufacturers</span>
+      </div>
+    </a>
+    <a href="/" class="back-btn">← Shop</a>
+  </div>
+</nav>
+
+<!-- PAGE -->
+<div class="page">
+  <div class="page-title-tag">📦 Order Tracking</div>
+  <h1 class="page-title">Apna Order Track Karein</h1>
+  <p class="page-sub">Order ID aur mobile number se pata karein aapka order kahan tak pahuncha.</p>
+
+  <!-- SEARCH -->
+  <div class="search-box">
+    <h3>🔍 Order Search</h3>
+    <div class="form-group">
+      <label class="form-label">Order ID</label>
+      <input class="form-input" id="inputOrderId" type="text" placeholder="e.g. SSE123456" style="text-transform:uppercase"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Registered Mobile Number</label>
+      <input class="form-input" id="inputPhone" type="tel" placeholder="10-digit number" maxlength="10"/>
+    </div>
+    <button class="track-btn" id="trackBtn" onclick="trackOrder()">
+      🔍 Track Order
+    </button>
+    <div class="err-msg" id="errMsg"></div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="order-result" id="orderResult">
+
+    <!-- ORDER CARD -->
+    <div class="order-card">
+      <div class="oc-header">
+        <div>
+          <div class="oc-id" id="resOrderId"></div>
+          <div class="oc-date" id="resDate"></div>
+        </div>
+        <span class="status-pill" id="resStatusPill"></span>
+      </div>
+      <div class="oc-body">
+
+        <!-- TRACKER STEPPER -->
+        <div class="oc-section-title">Delivery Progress</div>
+        <div class="tracker">
+          <div class="steps" id="stepsList"></div>
+        </div>
+
+        <div style="height:1px;background:var(--cream3);margin:20px 0"></div>
+
+        <!-- ORDER ITEMS -->
+        <div class="oc-section-title">Items Ordered</div>
+        <ul class="items-list" id="resItems"></ul>
+        <div class="total-row"><span>Total Amount</span><span id="resTotal"></span></div>
+
+        <div style="height:1px;background:var(--cream3);margin:20px 0"></div>
+
+        <!-- DELIVERY INFO -->
+        <div class="oc-section-title">Delivery Details</div>
+        <div class="info-grid" id="resInfo"></div>
+
+      </div>
+    </div>
+
+    <!-- HELP BOX -->
+    <div class="help-box">
+      <h4>Koi problem hai? Hum help karenge! 😊</h4>
+      <p>Order se related koi bhi sawaal ke liye WhatsApp ya call karein.</p>
+      <div class="help-btns">
+        <a href="https://wa.me/916393539533" target="_blank" class="btn-wa">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          WhatsApp
+        </a>
+        <a href="tel:+916393539533" class="btn-call">📞 Call Now</a>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer-mini">© 2025 Shri Shiv Enterprises, Kanpur &nbsp;·&nbsp; <a href="/">← Back to Shop</a></div>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/916393539533" target="_blank">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const STEPS_CONFIG = [
+  { key: 'ordered',    icon: '✓', title: 'Order Placed',        desc: 'Aapka order successfully receive ho gaya hai.' },
+  { key: 'confirmed',  icon: '✓', title: 'Order Confirmed',     desc: 'Humne aapka order verify kar liya hai.' },
+  { key: 'processing', icon: '✓', title: 'Packing in Progress', desc: 'Aapka order pack kiya ja raha hai factory mein.' },
+  { key: 'shipped',    icon: '✓', title: 'Shipped',             desc: 'Order dispatch ho gaya — delivery partner ke paas.' },
+  { key: 'delivered',  icon: '✓', title: 'Delivered',           desc: 'Order successfully deliver ho gaya! 🎉' },
+];
+
+// Map status → step index (0-based, how many steps are "done")
+const STATUS_STEP_MAP = {
+  'Pending':    0, // only "Order Placed" active
+  'Processing': 2, // up to Packing
+  'Shipped':    3, // up to Shipped
+  'Delivered':  4, // all done
+  'Cancelled':  -1,
+};
+
+async function trackOrder() {
+  const orderId = document.getElementById('inputOrderId').value.trim().toUpperCase();
+  const phone   = document.getElementById('inputPhone').value.trim();
+  const err     = document.getElementById('errMsg');
+  const btn     = document.getElementById('trackBtn');
+
+  err.style.display = 'none';
+  if (!orderId || !phone) { showErr('Order ID aur phone number dono bharen.'); return; }
+  if (phone.length !== 10) { showErr('Phone number 10 digits ka hona chahiye.'); return; }
+
+  btn.disabled = true; btn.textContent = 'Tracking...';
+  try {
+    const res  = await fetch(`/api/track?orderId=${encodeURIComponent(orderId)}&phone=${encodeURIComponent(phone)}`);
+    const data = await res.json();
+    if (!res.ok) { showErr(data.error || 'Order nahi mila. Order ID aur phone check karein.'); return; }
+    renderResult(data);
+  } catch(e) {
+    showErr('Network error. Please dobara try karein.');
+  } finally {
+    btn.disabled = false; btn.textContent = '🔍 Track Order';
+  }
+}
+
+function showErr(msg) {
+  const el = document.getElementById('errMsg');
+  el.textContent = msg; el.style.display = 'block';
+}
+
+function renderResult(order) {
+  document.getElementById('orderResult').style.display = 'block';
+  document.getElementById('orderResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  // Header
+  document.getElementById('resOrderId').textContent = '🛍️ Order #' + order.id;
+  const d = new Date(order.createdAt);
+  document.getElementById('resDate').textContent = 'Placed on ' + d.toLocaleDateString('en-IN', { day:'numeric', month:'long', year:'numeric', timeZone:'Asia/Kolkata' }) + ' at ' + d.toLocaleTimeString('en-IN', { hour:'2-digit', minute:'2-digit', timeZone:'Asia/Kolkata' });
+
+  const pill = document.getElementById('resStatusPill');
+  pill.textContent = order.status;
+  pill.className = 'status-pill status-' + order.status;
+
+  // Steps
+  renderSteps(order.status, order);
+
+  // Items
+  const itemsEl = document.getElementById('resItems');
+  itemsEl.innerHTML = order.items.map(i => `
+    <li class="item-row">
+      <span class="item-name">📦 ${i.name}</span>
+      <span class="item-qty">× ${i.qty}</span>
+      <span class="item-price">₹${i.price * i.qty}</span>
+    </li>`).join('');
+  document.getElementById('resTotal').textContent = '₹' + order.total;
+
+  // Delivery info
+  document.getElementById('resInfo').innerHTML = `
+    <div class="info-item"><div class="info-label">Customer</div><div class="info-val">${order.customerName}</div></div>
+    <div class="info-item"><div class="info-label">Phone</div><div class="info-val">📞 ${order.phone}</div></div>
+    <div class="info-item" style="grid-column:1/-1"><div class="info-label">Delivery Address</div><div class="info-val">📍 ${order.address}, ${order.city} — ${order.pincode}</div></div>
+    <div class="info-item"><div class="info-label">Payment</div><div class="info-val"><span class="payment-badge">${order.paymentMethod === 'COD' ? '💵 Cash on Delivery' : '📱 UPI / Online'}</span></div></div>
+    ${order.notes ? `<div class="info-item"><div class="info-label">Note</div><div class="info-val">${order.notes}</div></div>` : ''}
+  `;
+}
+
+function renderSteps(status, order) {
+  const doneUpTo = STATUS_STEP_MAP[status] ?? 0;
+  const isCancelled = status === 'Cancelled';
+  const stepsList = document.getElementById('stepsList');
+
+  if (isCancelled) {
+    stepsList.innerHTML = `
+      <div style="background:#fee2e2;border:1px solid #fca5a5;border-radius:12px;padding:16px 20px;color:#b91c1c;font-size:14px;font-weight:600;display:flex;align-items:center;gap:10px">
+        <span style="font-size:24px">❌</span>
+        <div><div style="font-size:15px;font-weight:800">Order Cancelled</div><div style="font-size:12px;color:#dc2626;margin-top:2px">Aapka order cancel ho gaya hai. Help ke liye WhatsApp karein.</div></div>
+      </div>`;
+    return;
+  }
+
+  const d = new Date(order.createdAt);
+  const orderedTime = d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit',timeZone:'Asia/Kolkata'}) + ', ' + d.toLocaleDateString('en-IN',{day:'numeric',month:'short',timeZone:'Asia/Kolkata'});
+
+  stepsList.innerHTML = STEPS_CONFIG.map((step, i) => {
+    let dotClass, titleClass, descText, timeText = '';
+    if (i < doneUpTo) {
+      dotClass = 'done'; titleClass = 'done-text';
+      descText = step.desc;
+      if (i === 0) timeText = orderedTime;
+      if (i === 3 && order.updatedAt) timeText = new Date(order.updatedAt).toLocaleDateString('en-IN',{day:'numeric',month:'short',timeZone:'Asia/Kolkata'});
+    } else if (i === doneUpTo) {
+      dotClass = 'active'; titleClass = 'active-text';
+      descText = step.desc;
+      if (i === 0) timeText = orderedTime;
+    } else {
+      dotClass = ''; titleClass = 'pending-text';
+      descText = 'Abhi tak nahi hua hai.';
+    }
+    return `
+      <div class="step">
+        <div class="step-dot ${dotClass}">
+          ${dotClass === 'done' ? `<span class="dot-inner">${step.icon}</span>` : `<span class="dot-inner"></span>`}
+        </div>
+        <div class="step-content">
+          <div class="step-title ${titleClass}">${step.title}</div>
+          <div class="step-desc">${descText}</div>
+          ${timeText ? `<div class="step-time">🕐 ${timeText}</div>` : ''}
+        </div>
+      </div>`;
+  }).join('');
+}
+
+// Pre-fill from URL params (e.g. /track?orderId=SSE123&phone=9876543210)
+const params = new URLSearchParams(window.location.search);
+if (params.get('orderId')) document.getElementById('inputOrderId').value = params.get('orderId').toUpperCase();
+if (params.get('phone'))   document.getElementById('inputPhone').value   = params.get('phone');
+if (params.get('orderId') && params.get('phone')) trackOrder();
+
+// Enter key support
+document.addEventListener('keydown', e => { if(e.key==='Enter') trackOrder(); });
+</script>
+</body>
+</html>
