@@ -12,15 +12,17 @@
   --navy:#0f2040;--navy2:#172d52;
   --gold:#c8870a;--gold2:#e09b12;--gold3:#f5b730;
   --text:#1a1a1a;--text2:#4a4a4a;--text3:#888;
-  --white:#ffffff;--radius:16px;
+  --white:#fff;--radius:16px;--green:#16a34a;
 }
 html{scroll-behavior:smooth}
 body{font-family:'Inter',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
 ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--gold);border-radius:4px}
 
+/* TOPBAR */
 .topbar{background:var(--navy);color:rgba(255,255,255,0.8);font-size:12px;padding:7px 16px;display:flex;align-items:center;justify-content:space-between}
 .topbar a{color:var(--gold3);text-decoration:none;font-weight:600}
 
+/* NAV */
 nav{background:var(--white);position:sticky;top:0;z-index:100;border-bottom:2px solid var(--gold3);padding:0 16px;box-shadow:0 2px 12px rgba(0,0,0,0.08)}
 .nav-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:68px}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none}
@@ -38,6 +40,7 @@ nav{background:var(--white);position:sticky;top:0;z-index:100;border-bottom:2px 
 .nav-menu a{color:var(--navy);text-decoration:none;font-size:15px;font-weight:600;padding:10px 0;border-bottom:1px solid var(--cream2)}
 .nav-menu a:last-child{border:none}
 
+/* HERO */
 .hero{background:var(--cream);padding:36px 16px 40px;position:relative;overflow:hidden}
 .hero::before{content:'';position:absolute;top:-60px;right:-60px;width:260px;height:260px;background:var(--gold3);opacity:.1;border-radius:50%}
 .hero-badge{display:inline-flex;align-items:center;gap:6px;border:1.5px solid var(--navy);border-radius:50px;padding:5px 14px;font-size:12px;font-weight:500;color:var(--navy);margin-bottom:16px}
@@ -53,6 +56,7 @@ nav{background:var(--white);position:sticky;top:0;z-index:100;border-bottom:2px 
 .h-stat-num{font-size:24px;font-weight:800;color:var(--navy)}
 .h-stat-label{font-size:11px;color:var(--text3);margin-top:2px}
 
+/* FEATURES */
 .features{background:white;padding:20px 16px;border-top:1px solid var(--cream3);border-bottom:1px solid var(--cream3)}
 .features-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:16px}
 .feat{display:flex;align-items:center;gap:10px}
@@ -60,6 +64,7 @@ nav{background:var(--white);position:sticky;top:0;z-index:100;border-bottom:2px 
 .feat-title{font-weight:700;font-size:13px;color:var(--navy)}
 .feat-sub{font-size:11px;color:var(--text3)}
 
+/* PRODUCTS LIST */
 #products{padding:40px 16px}
 .products-inner{max-width:1100px;margin:0 auto}
 .sec-tag{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
@@ -68,20 +73,67 @@ nav{background:var(--white);position:sticky;top:0;z-index:100;border-bottom:2px 
 .f-btn{padding:7px 16px;border-radius:50px;font-size:13px;font-weight:600;cursor:pointer;border:1.5px solid var(--cream3);background:white;color:var(--text2);transition:all .2s;font-family:inherit}
 .f-btn.active,.f-btn:hover{background:var(--navy);color:white;border-color:var(--navy)}
 .prod-grid{display:grid;grid-template-columns:1fr;gap:16px}
-.prod-card{background:white;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid var(--cream3);transition:all .25s}
-.prod-card:hover{box-shadow:0 8px 28px rgba(0,0,0,0.12);transform:translateY(-3px)}
+.prod-card{background:white;border-radius:var(--radius);overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.06);border:1px solid var(--cream3);transition:all .25s;cursor:pointer}
+.prod-card:hover{box-shadow:0 8px 28px rgba(0,0,0,0.12);transform:translateY(-2px)}
 .prod-img{width:100%;height:240px;overflow:hidden;position:relative;background:var(--cream2)}
 .prod-img img{width:100%;height:100%;object-fit:cover;object-position:top;transition:transform .3s}
 .prod-card:hover .prod-img img{transform:scale(1.04)}
 .prod-badge{position:absolute;top:12px;left:12px;background:var(--gold3);color:var(--navy);font-size:11px;font-weight:800;padding:4px 12px;border-radius:50px;text-transform:uppercase;letter-spacing:.05em}
-.prod-body{padding:14px 16px 16px;display:flex;align-items:flex-end;justify-content:space-between;gap:12px}
+.prod-body{padding:14px 16px 16px}
 .prod-cat{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:4px}
 .prod-name{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--navy);margin-bottom:4px}
 .prod-price{font-size:22px;font-weight:800;color:var(--gold)}
-.prod-meta{font-size:12px;color:var(--text3);margin-top:2px}
-.cart-add{width:46px;height:46px;border-radius:50%;background:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;transition:all .2s;box-shadow:0 4px 12px rgba(15,32,64,0.25)}
-.cart-add:hover{transform:scale(1.1)}
+.prod-meta{font-size:12px;color:var(--text3);margin-top:2px;margin-bottom:14px}
+.prod-actions{display:flex;gap:10px}
+.btn-cart{flex:1;padding:11px;background:var(--cream2);color:var(--navy);font-weight:700;font-size:13px;border:2px solid var(--navy);border-radius:10px;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-cart:hover{background:var(--navy);color:white}
+.btn-buy{flex:1;padding:11px;background:var(--gold3);color:var(--navy);font-weight:700;font-size:13px;border:none;border-radius:10px;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-buy:hover{background:var(--gold2)}
 
+/* PRODUCT DETAIL MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:300;overflow-y:auto}
+.modal-overlay.open{display:flex;align-items:flex-start;justify-content:center;padding:16px}
+.modal{background:white;border-radius:20px;width:100%;max-width:600px;overflow:hidden;margin:auto;position:relative}
+.modal-close{position:absolute;top:12px;right:12px;width:36px;height:36px;border-radius:50%;background:rgba(0,0,0,0.15);border:none;cursor:pointer;font-size:18px;display:flex;align-items:center;justify-content:center;z-index:10;color:white}
+/* Image Gallery */
+.modal-gallery{position:relative;background:var(--cream2)}
+.main-img{width:100%;height:300px;object-fit:cover;object-position:top;display:block}
+.main-img-placeholder{width:100%;height:300px;display:flex;align-items:center;justify-content:center;font-size:80px;background:var(--cream2)}
+.thumb-row{display:flex;gap:8px;padding:10px 12px;background:var(--cream2);overflow-x:auto}
+.thumb{width:64px;height:64px;border-radius:8px;overflow:hidden;border:2px solid transparent;cursor:pointer;flex-shrink:0;transition:border-color .2s}
+.thumb.active{border-color:var(--navy)}
+.thumb img{width:100%;height:100%;object-fit:cover;object-position:top}
+/* Modal Body */
+.modal-body{padding:20px}
+.modal-cat{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:6px}
+.modal-name{font-family:'Playfair Display',serif;font-size:22px;font-weight:800;color:var(--navy);margin-bottom:8px}
+.modal-rating{display:flex;align-items:center;gap:6px;margin-bottom:12px}
+.stars{color:var(--gold3);font-size:16px}
+.rating-count{font-size:13px;color:var(--text3)}
+.modal-price-row{display:flex;align-items:baseline;gap:8px;margin-bottom:6px}
+.modal-price{font-size:28px;font-weight:800;color:var(--gold)}
+.modal-mrp{font-size:15px;color:var(--text3);text-decoration:line-through}
+.modal-discount{font-size:13px;font-weight:700;color:var(--green);background:#dcfce7;padding:2px 8px;border-radius:50px}
+.modal-meta{font-size:13px;color:var(--text2);margin-bottom:16px}
+.modal-meta span{display:inline-block;background:var(--cream2);padding:3px 10px;border-radius:50px;margin:3px 3px 3px 0;font-weight:500}
+.modal-divider{height:1px;background:var(--cream3);margin:16px 0}
+.modal-features{margin-bottom:16px}
+.modal-features h4{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:8px}
+.modal-features ul{list-style:none;display:flex;flex-direction:column;gap:5px}
+.modal-features li{font-size:13px;color:var(--text2);display:flex;align-items:center;gap:6px}
+.modal-features li::before{content:'✓';color:var(--green);font-weight:700}
+.qty-row{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.qty-row label{font-size:13px;font-weight:600;color:var(--navy)}
+.qty-ctrl{display:flex;align-items:center;gap:0;border:1.5px solid var(--cream3);border-radius:8px;overflow:hidden}
+.qty-ctrl button{width:36px;height:36px;border:none;background:var(--cream2);font-size:18px;cursor:pointer;font-weight:700}
+.qty-ctrl span{width:40px;text-align:center;font-weight:700;font-size:15px}
+.modal-actions{display:flex;gap:10px}
+.btn-modal-cart{flex:1;padding:14px;background:var(--cream2);color:var(--navy);font-weight:700;font-size:14px;border:2px solid var(--navy);border-radius:12px;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-modal-cart:hover{background:var(--navy);color:white}
+.btn-modal-buy{flex:1;padding:14px;background:var(--gold3);color:var(--navy);font-weight:700;font-size:14px;border:none;border-radius:12px;cursor:pointer;font-family:inherit;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-modal-buy:hover{background:var(--gold2)}
+
+/* WHOLESALE */
 .wholesale{background:var(--navy);border-radius:20px;padding:36px 24px;margin:0 16px 48px}
 .ws-tag{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--gold3);margin-bottom:10px}
 .ws-title{font-family:'Playfair Display',serif;font-size:clamp(24px,5vw,36px);font-weight:800;color:white;line-height:1.2;margin-bottom:10px}
@@ -90,6 +142,7 @@ nav{background:var(--white);position:sticky;top:0;z-index:100;border-bottom:2px 
 .btn-gold{display:inline-flex;align-items:center;gap:8px;background:var(--gold3);color:var(--navy);font-weight:700;font-size:14px;padding:12px 24px;border-radius:50px;text-decoration:none;transition:all .2s}
 .btn-outline-white{display:inline-flex;align-items:center;gap:8px;background:transparent;color:white;font-weight:600;font-size:14px;padding:12px 22px;border-radius:50px;border:2px solid rgba(255,255,255,0.4);text-decoration:none;transition:all .2s}
 
+/* FOOTER */
 footer{background:var(--navy);color:rgba(255,255,255,0.8);padding:40px 16px 20px}
 .footer-inner{max-width:1100px;margin:0 auto}
 .footer-logo{display:flex;align-items:center;gap:10px;margin-bottom:12px}
@@ -104,6 +157,7 @@ footer{background:var(--navy);color:rgba(255,255,255,0.8);padding:40px 16px 20px
 .footer-col a:hover{color:var(--gold3)}
 .footer-bottom{border-top:1px solid rgba(255,255,255,0.1);padding-top:16px;text-align:center;font-size:12px;color:rgba(255,255,255,0.4)}
 
+/* CART DRAWER */
 .cart-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.5);z-index:200}
 .cart-overlay.open{display:block}
 .cart-drawer{position:fixed;right:0;top:0;bottom:0;width:min(360px,100vw);background:white;z-index:201;transform:translateX(100%);transition:transform .3s;padding:20px;overflow-y:auto;display:flex;flex-direction:column}
@@ -112,20 +166,24 @@ footer{background:var(--navy);color:rgba(255,255,255,0.8);padding:40px 16px 20px
 .cart-header h3{font-size:18px;font-weight:800;color:var(--navy)}
 .close-btn{background:var(--cream2);border:none;cursor:pointer;width:34px;height:34px;border-radius:50%;font-size:16px;display:flex;align-items:center;justify-content:center}
 .cart-item{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--cream3)}
-.ci-img{width:56px;height:56px;border-radius:8px;overflow:hidden;background:var(--cream2);flex-shrink:0}
-.ci-img img{width:100%;height:100%;object-fit:cover}
+.ci-img{width:60px;height:60px;border-radius:8px;overflow:hidden;background:var(--cream2);flex-shrink:0}
+.ci-img img{width:100%;height:100%;object-fit:cover;object-position:top}
 .ci-name{font-weight:700;font-size:13px;color:var(--navy)}
 .ci-price{font-size:14px;font-weight:800;color:var(--gold)}
 .ci-qty{display:flex;align-items:center;gap:8px;margin-top:6px}
-.qty-btn{width:24px;height:24px;border-radius:50%;border:1px solid var(--cream3);background:white;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
-.cart-footer{margin-top:16px}
+.qty-btn{width:26px;height:26px;border-radius:50%;border:1px solid var(--cream3);background:white;cursor:pointer;font-size:14px;display:flex;align-items:center;justify-content:center}
+.cart-footer-box{margin-top:16px}
 .cart-total{display:flex;justify-content:space-between;font-weight:700;font-size:16px;margin-bottom:14px;color:var(--navy)}
 .btn-checkout{width:100%;padding:13px;background:var(--navy);color:white;font-weight:700;font-size:15px;border:none;border-radius:12px;cursor:pointer;font-family:inherit;margin-bottom:8px}
 .btn-wa-order{width:100%;padding:13px;background:#25d366;color:white;font-weight:700;font-size:14px;border:none;border-radius:12px;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:8px}
 .cart-empty{text-align:center;padding:40px 0;color:var(--text3)}
 
+/* WHATSAPP FLOAT */
 .wa-float{position:fixed;bottom:20px;right:20px;z-index:150;width:52px;height:52px;border-radius:50%;background:#25d366;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 16px rgba(37,211,102,0.4);text-decoration:none;transition:all .2s}
-.wa-float:hover{transform:scale(1.1)}
+
+/* TOAST */
+.toast{position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--navy);color:white;padding:10px 20px;border-radius:50px;font-size:13px;font-weight:600;opacity:0;transition:all .3s;z-index:400;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
 @media(min-width:600px){.prod-grid{grid-template-columns:1fr 1fr;gap:16px}}
 @media(min-width:900px){.prod-grid{grid-template-columns:repeat(3,1fr)}}
@@ -244,88 +302,231 @@ footer{background:var(--navy);color:rgba(255,255,255,0.8);padding:40px 16px 20px
   <svg width="26" height="26" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
 </a>
 
+<!-- PRODUCT DETAIL MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-gallery">
+      <div id="mainImgWrap"></div>
+      <div class="thumb-row" id="thumbRow"></div>
+    </div>
+    <div class="modal-body">
+      <div class="modal-cat" id="mCat"></div>
+      <div class="modal-name" id="mName"></div>
+      <div class="modal-rating">
+        <span class="stars">★★★★★</span>
+        <span class="rating-count">(128 ratings)</span>
+      </div>
+      <div class="modal-price-row">
+        <span class="modal-price" id="mPrice"></span>
+        <span class="modal-mrp" id="mMrp"></span>
+        <span class="modal-discount" id="mDiscount"></span>
+      </div>
+      <div class="modal-meta" id="mMeta"></div>
+      <div class="modal-divider"></div>
+      <div class="modal-features">
+        <h4>Product Highlights:</h4>
+        <ul id="mFeatures"></ul>
+      </div>
+      <div class="qty-row">
+        <label>Qty:</label>
+        <div class="qty-ctrl">
+          <button onclick="changeModalQty(-1)">−</button>
+          <span id="modalQty">1</span>
+          <button onclick="changeModalQty(1)">+</button>
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn-modal-cart" onclick="addFromModal()">🛒 Add to Cart</button>
+        <button class="btn-modal-buy" onclick="buyNow()">⚡ Buy Now</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
 <div class="cart-overlay" id="cartOverlay" onclick="closeCart()"></div>
 <div class="cart-drawer" id="cartDrawer">
   <div class="cart-header">
     <h3>🛒 Your Cart</h3>
     <button class="close-btn" onclick="closeCart()">✕</button>
   </div>
-  <div class="cart-items" id="cartItems"></div>
-  <div class="cart-footer" id="cartFooter" style="display:none">
+  <div class="cart-items" id="cartItems" style="flex:1"></div>
+  <div class="cart-footer-box" id="cartFooter" style="display:none">
     <div class="cart-total"><span>Total</span><span id="cartTotal">₹0</span></div>
     <button class="btn-checkout" onclick="checkoutWA()">Order on WhatsApp →</button>
     <button class="btn-wa-order" onclick="checkoutWA()">💬 Send Order via WhatsApp</button>
   </div>
 </div>
 
+<div class="toast" id="toast"></div>
+
 <script>
 const products=[
-  {id:1,cat:'notebook',img:'imgs/1.jpg',name:'Cartoon Cover Notebook',cat_label:'NOTEBOOK',price:60,pages:'172 pages',size:'A4',badge:'BESTSELLER'},
-  {id:2,cat:'notebook',img:'imgs/2.jpg',name:'Sports Cover Notebook',cat_label:'NOTEBOOK',price:60,pages:'172 pages',size:'A4',badge:'BESTSELLER'},
-  {id:3,cat:'notebook',img:'imgs/6.jpg',name:'Horse Cover Notebook',cat_label:'NOTEBOOK',price:65,pages:'180 pages',size:'A4',badge:''},
-  {id:4,cat:'notebook',img:'imgs/7.jpg',name:'Summer Cover Notebook',cat_label:'NOTEBOOK',price:60,pages:'172 pages',size:'A4',badge:''},
-  {id:5,cat:'notebook',img:'imgs/5.jpg',name:'Winter Cover Notebook',cat_label:'NOTEBOOK',price:55,pages:'164 pages',size:'A4',badge:'BESTSELLER'},
-  {id:6,cat:'notebook',img:'imgs/8.jpg',name:'Premium Cover Notebook',cat_label:'NOTEBOOK',price:70,pages:'180 pages',size:'A4',badge:''},
-  {id:7,cat:'notebook',img:'imgs/3.jpg',name:'Galaxy Cover Notebook',cat_label:'NOTEBOOK',price:65,pages:'180 pages',size:'A4',badge:'BESTSELLER'},
-  {id:8,cat:'notebook',img:'imgs/4.jpg',name:'Designer Cover Notebook',cat_label:'NOTEBOOK',price:55,pages:'172 pages',size:'A4',badge:''},
-  {id:9,cat:'register',img:null,e:'📋',name:'Long Khata Register (3 Quire)',cat_label:'REGISTER',price:180,pages:'144 pages',size:'Long',badge:''},
-  {id:10,cat:'register',img:null,e:'📚',name:'Register 400 Pages',cat_label:'REGISTER',price:220,pages:'400 pages',size:'A4',badge:''},
-  {id:11,cat:'file',img:null,e:'📁',name:'Practical File A4',cat_label:'FILE',price:45,pages:'100 pages',size:'A4',badge:''},
+  {id:1,cat:'notebook',imgs:['imgs/1.jpg','imgs/3.jpg'],name:'Cartoon Cover Notebook',cat_label:'NOTEBOOK',price:60,mrp:75,pages:'172 pages',size:'A4',badge:'BESTSELLER',
+   features:['80 GSM Premium Paper','Vibrant Cartoon Cover Design','Single Line Ruled Pages','A4 Size - Perfect for School','No.1 Brand - Superior Quality']},
+  {id:2,cat:'notebook',imgs:['imgs/2.jpg','imgs/4.jpg'],name:'Sports Cover Notebook',cat_label:'NOTEBOOK',price:60,mrp:75,pages:'172 pages',size:'A4',badge:'BESTSELLER',
+   features:['80 GSM Premium Paper','Sports Theme Cover Design','Single Line Ruled Pages','A4 Size - Perfect for School','No.1 Brand - Superior Quality']},
+  {id:3,cat:'notebook',imgs:['imgs/6.jpg','imgs/8.jpg'],name:'Horse Cover Notebook',cat_label:'NOTEBOOK',price:65,mrp:80,pages:'180 pages',size:'A4',badge:'',
+   features:['80 GSM Premium Paper','Beautiful Horse Cover Design','Single Line Ruled Pages','A4 Exercise Notebook','Eco Friendly - Vocal for Local']},
+  {id:4,cat:'notebook',imgs:['imgs/7.jpg','imgs/5.jpg'],name:'Summer Cover Notebook',cat_label:'NOTEBOOK',price:60,mrp:75,pages:'172 pages',size:'A4',badge:'',
+   features:['80 GSM Premium Paper','Colorful Summer Theme Cover','Single Line Ruled Pages','A4 Size Notebook','No.1 Brand - Superior Quality']},
+  {id:5,cat:'notebook',imgs:['imgs/5.jpg','imgs/7.jpg'],name:'Winter Cover Notebook',cat_label:'NOTEBOOK',price:55,mrp:70,pages:'164 pages',size:'A4',badge:'BESTSELLER',
+   features:['80 GSM Premium Paper','Winter Adventure Cover Design','Single Line Ruled Pages','A4 Size Notebook','No.1 Brand - Superior Quality']},
+  {id:6,cat:'notebook',imgs:['imgs/8.jpg','imgs/6.jpg'],name:'Premium Cover Notebook',cat_label:'NOTEBOOK',price:70,mrp:90,pages:'180 pages',size:'A4',badge:'',
+   features:['Premium Quality Paper','Exclusive Cover Design','Single Line Ruled Pages','A4 Exercise Notebook','Eco Friendly - Made in India']},
+  {id:7,cat:'notebook',imgs:['imgs/3.jpg','imgs/1.jpg'],name:'Galaxy Cover Notebook',cat_label:'NOTEBOOK',price:65,mrp:80,pages:'180 pages',size:'A4',badge:'BESTSELLER',
+   features:['80 GSM Premium Paper','Galaxy Theme Cover Design','Single Line Ruled Pages','A4 Exercise Notebook','No.1 Brand - Superior Quality']},
+  {id:8,cat:'notebook',imgs:['imgs/4.jpg','imgs/2.jpg'],name:'Designer Cover Notebook',cat_label:'NOTEBOOK',price:55,mrp:70,pages:'172 pages',size:'A4',badge:'',
+   features:['80 GSM Premium Paper','Designer Cover with Kite Theme','Single Line Ruled Pages','A4 Size Notebook','Eco Friendly - Vocal for Local']},
+  {id:9,cat:'register',imgs:null,e:'📋',name:'Long Khata Register (3 Quire)',cat_label:'REGISTER',price:180,mrp:220,pages:'144 pages',size:'Long',badge:'',
+   features:['Premium Quality Paper','Hardbound Cover','Ruled Pages','Long Size Register','Ideal for Accounts & Records']},
+  {id:10,cat:'register',imgs:null,e:'📚',name:'Register 400 Pages',cat_label:'REGISTER',price:220,mrp:270,pages:'400 pages',size:'A4',badge:'',
+   features:['Premium Quality Paper','Hardbound Cover','400 Pages - Long Lasting','A4 Size Register','Ideal for Office & School']},
+  {id:11,cat:'file',imgs:null,e:'📁',name:'Practical File A4',cat_label:'FILE',price:45,mrp:60,pages:'100 pages',size:'A4',badge:'',
+   features:['Premium Quality Pages','Proper Ruling for Science','A4 Size Practical File','Eco Friendly Paper','Ideal for Students']},
 ];
+
 let cart=[];
+let modalQty=1;
+let currentProduct=null;
+let currentCat='all';
+
 function renderProducts(cat){
+  currentCat=cat;
   const grid=document.getElementById('prodGrid');
   const list=cat==='all'?products:products.filter(p=>p.cat===cat);
   grid.innerHTML=list.map(p=>`
-    <div class="prod-card">
+    <div class="prod-card" onclick="openModal(${p.id})">
       <div class="prod-img">
-        ${p.img?`<img src="${p.img}" alt="${p.name}" loading="lazy"/>`:`<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:64px">${p.e}</div>`}
+        ${p.imgs?`<img src="${p.imgs[0]}" alt="${p.name}" loading="lazy"/>`:`<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:72px">${p.e}</div>`}
         ${p.badge?`<span class="prod-badge">${p.badge}</span>`:''}
       </div>
       <div class="prod-body">
-        <div>
-          <div class="prod-cat">${p.cat_label}</div>
-          <div class="prod-name">${p.name}</div>
-          <div class="prod-price">₹${p.price}</div>
-          <div class="prod-meta">${p.pages} · ${p.size}</div>
+        <div class="prod-cat">${p.cat_label}</div>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-price">₹${p.price} <span style="font-size:13px;color:var(--text3);text-decoration:line-through;font-weight:400">₹${p.mrp}</span></div>
+        <div class="prod-meta">${p.pages} · ${p.size}</div>
+        <div class="prod-actions" onclick="event.stopPropagation()">
+          <button class="btn-cart" onclick="quickAddCart(${p.id})">🛒 Add to Cart</button>
+          <button class="btn-buy" onclick="quickBuyNow(${p.id})">⚡ Buy Now</button>
         </div>
-        <button class="cart-add" onclick="addToCart(${p.id})">🛒</button>
       </div>
     </div>`).join('');
 }
-function filterCat(cat,btn){
-  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');renderProducts(cat);
+
+function openModal(id){
+  const p=products.find(x=>x.id===id);
+  currentProduct=p;
+  modalQty=1;
+  document.getElementById('modalQty').textContent=1;
+  document.getElementById('mCat').textContent=p.cat_label;
+  document.getElementById('mName').textContent=p.name;
+  document.getElementById('mPrice').textContent='₹'+p.price;
+  document.getElementById('mMrp').textContent='₹'+p.mrp;
+  const disc=Math.round((p.mrp-p.price)/p.mrp*100);
+  document.getElementById('mDiscount').textContent=disc+'% off';
+  document.getElementById('mMeta').innerHTML=`<span>📄 ${p.pages}</span><span>📐 ${p.size}</span><span>✅ In Stock</span>`;
+  document.getElementById('mFeatures').innerHTML=p.features.map(f=>`<li>${f}</li>`).join('');
+
+  // Images
+  const mainWrap=document.getElementById('mainImgWrap');
+  const thumbRow=document.getElementById('thumbRow');
+  if(p.imgs && p.imgs.length>0){
+    mainWrap.innerHTML=`<img class="main-img" id="mainImg" src="${p.imgs[0]}" alt="${p.name}"/>`;
+    thumbRow.innerHTML=p.imgs.map((img,i)=>`<div class="thumb ${i===0?'active':''}" onclick="switchImg('${img}',this)"><img src="${img}" alt=""/></div>`).join('');
+    thumbRow.style.display='flex';
+  } else {
+    mainWrap.innerHTML=`<div class="main-img-placeholder">${p.e}</div>`;
+    thumbRow.style.display='none';
+  }
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow='hidden';
 }
-function addToCart(id){
+
+function switchImg(src,thumb){
+  document.getElementById('mainImg').src=src;
+  document.querySelectorAll('.thumb').forEach(t=>t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow='';
+}
+
+function closeModalOutside(e){
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
+}
+
+function changeModalQty(d){
+  modalQty=Math.max(1,modalQty+d);
+  document.getElementById('modalQty').textContent=modalQty;
+}
+
+function addFromModal(){
+  if(!currentProduct)return;
+  for(let i=0;i<modalQty;i++) addToCartById(currentProduct.id);
+  closeModal();
+  showToast('🛒 Cart mein add ho gaya!');
+  openCart();
+}
+
+function buyNow(){
+  if(!currentProduct)return;
+  const p=currentProduct;
+  let msg=`Namaste! Main ye order karna chahta hoon:\n\n• ${p.name} x${modalQty} = ₹${p.price*modalQty}\n\nPlease confirm.`;
+  window.open('https://wa.me/916393539533?text='+encodeURIComponent(msg),'_blank');
+}
+
+function quickAddCart(id){
+  addToCartById(id);
+  showToast('🛒 Cart mein add ho gaya!');
+  openCart();
+}
+
+function quickBuyNow(id){
+  const p=products.find(x=>x.id===id);
+  let msg=`Namaste! Main ye order karna chahta hoon:\n\n• ${p.name} x1 = ₹${p.price}\n\nPlease confirm.`;
+  window.open('https://wa.me/916393539533?text='+encodeURIComponent(msg),'_blank');
+}
+
+function addToCartById(id){
   const p=products.find(x=>x.id===id);
   const ex=cart.find(x=>x.id===id);
   if(ex)ex.qty++;else cart.push({...p,qty:1});
-  updateCartCount();openCart();
+  updateCartCount();
 }
+
 function updateCartCount(){
   document.getElementById('cartCount').textContent=cart.reduce((s,x)=>s+x.qty,0);
 }
+
 function openCart(){
   document.getElementById('cartOverlay').classList.add('open');
   document.getElementById('cartDrawer').classList.add('open');
   renderCart();
 }
+
 function closeCart(){
   document.getElementById('cartOverlay').classList.remove('open');
   document.getElementById('cartDrawer').classList.remove('open');
 }
+
 function renderCart(){
   const el=document.getElementById('cartItems');
   const footer=document.getElementById('cartFooter');
-  if(!cart.length){el.innerHTML='<div class="cart-empty"><div style="font-size:48px">🛒</div><p>Cart khali hai</p></div>';footer.style.display='none';return;}
+  if(!cart.length){
+    el.innerHTML='<div class="cart-empty"><div style="font-size:48px">🛒</div><p style="margin-top:12px">Cart khali hai</p></div>';
+    footer.style.display='none';return;
+  }
   footer.style.display='block';
   el.innerHTML=cart.map(item=>`
     <div class="cart-item">
-      <div class="ci-img">${item.img?`<img src="${item.img}" alt="${item.name}"/>`:`<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:28px">${item.e}</div>`}</div>
+      <div class="ci-img">${item.imgs?`<img src="${item.imgs[0]}" alt="${item.name}"/>`:`<div style="display:flex;align-items:center;justify-content:center;height:100%;font-size:28px">${item.e}</div>`}</div>
       <div style="flex:1">
         <div class="ci-name">${item.name}</div>
-        <div class="ci-price">₹${item.price}</div>
+        <div class="ci-price">₹${item.price} × ${item.qty} = ₹${item.price*item.qty}</div>
         <div class="ci-qty">
           <button class="qty-btn" onclick="changeQty(${item.id},-1)">−</button>
           <span style="font-weight:700">${item.qty}</span>
@@ -335,11 +536,13 @@ function renderCart(){
     </div>`).join('');
   document.getElementById('cartTotal').textContent='₹'+cart.reduce((s,x)=>s+(x.price*x.qty),0);
 }
+
 function changeQty(id,delta){
   const item=cart.find(x=>x.id===id);if(!item)return;
   item.qty+=delta;if(item.qty<=0)cart=cart.filter(x=>x.id!==id);
   updateCartCount();renderCart();
 }
+
 function checkoutWA(){
   if(!cart.length)return;
   let msg='Namaste! Main ye order karna chahta hoon:\n\n';
@@ -347,7 +550,20 @@ function checkoutWA(){
   msg+=`\nTotal: ₹${cart.reduce((s,x)=>s+(x.price*x.qty),0)}\n\nPlease confirm.`;
   window.open('https://wa.me/916393539533?text='+encodeURIComponent(msg),'_blank');
 }
+
+function filterCat(cat,btn){
+  document.querySelectorAll('.f-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');renderProducts(cat);
+}
+
 function closeMenu(){document.getElementById('navMenu').classList.remove('open');}
+
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
 renderProducts('all');
 </script>
 </body>
