@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Owner Dashboard – Shri Shiv Enterprises</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="styles.css"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font-sans);background:var(--surface-base);color:var(--text-primary);min-height:100vh}
+    .dash-header{background:#1a237e;color:#fff;padding:16px 24px;display:flex;align-items:center;justify-content:space-between}
+    .dash-header h1{font-size:1.1rem;font-weight:700}
+    .dash-header span{font-size:0.8rem;color:#9fa8da}
+    .dash-main{max-width:1200px;margin:0 auto;padding:24px}
+
+    /* LOGIN */
+    .login-screen{display:flex;align-items:center;justify-content:center;min-height:80vh}
+    .login-box{background:#fff;border-radius:14px;padding:40px 36px;box-shadow:var(--shadow-lifted-card);width:min(360px,100%);text-align:center}
+    .login-box h2{font-size:1.3rem;font-weight:800;color:#1a237e;margin-bottom:6px}
+    .login-box p{font-size:0.85rem;color:var(--text-muted);margin-bottom:24px}
+    .login-input{width:100%;padding:12px 14px;border:1.5px solid #e0e0e0;border-radius:8px;font-size:0.95rem;font-family:var(--font-sans);outline:none;margin-bottom:12px}
+    .login-input:focus{border-color:#1a237e}
+    .login-btn{width:100%;padding:13px;background:#1a237e;color:#fff;border:none;border-radius:8px;font-size:1rem;font-weight:700;cursor:pointer;font-family:var(--font-sans)}
+
+    /* STATS */
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px}
+    .stat-card{background:#fff;border-radius:10px;padding:20px;box-shadow:var(--shadow-lifted-card);text-align:center}
+    .stat-card .num{font-size:1.8rem;font-weight:800;color:#1a237e}
+    .stat-card .lbl{font-size:0.78rem;color:var(--text-muted);margin-top:4px}
+    .stat-card.green .num{color:#2e7d32}
+    .stat-card.orange .num{color:#e65100}
+    .stat-card.red .num{color:#c62828}
+
+    /* ORDERS TABLE */
+    .orders-section{background:#fff;border-radius:12px;box-shadow:var(--shadow-lifted-card);overflow:hidden}
+    .orders-header{padding:16px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .orders-header h2{font-size:1rem;font-weight:700}
+    .filter-row{display:flex;gap:8px;flex-wrap:wrap}
+    .filter-btn{padding:6px 14px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:0.8rem;cursor:pointer;background:#fff;font-family:var(--font-sans);transition:all 0.15s}
+    .filter-btn.active{border-color:#1a237e;background:#f5f7ff;color:#1a237e;font-weight:600}
+    .table-wrap{overflow-x:auto}
+    table{width:100%;border-collapse:collapse;font-size:0.85rem}
+    th{background:#f5f5f5;padding:12px 14px;text-align:left;font-size:0.78rem;font-weight:700;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.4px;white-space:nowrap}
+    td{padding:12px 14px;border-top:1px solid #f5f5f5;vertical-align:top}
+    tr:hover td{background:#fafbff}
+    .order-id{font-weight:700;color:#1a237e;font-size:0.8rem}
+    .customer-info .name{font-weight:600;margin-bottom:2px}
+    .customer-info .phone{font-size:0.78rem;color:var(--text-muted)}
+    .items-list{font-size:0.78rem;color:var(--text-secondary);line-height:1.6}
+    .amount{font-weight:800;color:#1a237e}
+    .payment-tag{font-size:0.72rem;font-weight:600;padding:2px 8px;border-radius:4px;background:#e8f5e9;color:#2e7d32}
+    .payment-tag.upi{background:#e3f2fd;color:#1565c0}
+    .status-select{padding:5px 10px;border:1.5px solid #e0e0e0;border-radius:6px;font-size:0.78rem;font-family:var(--font-sans);cursor:pointer;outline:none}
+    .status-pending{border-color:#ff8f00;color:#e65100;background:#fff8e1}
+    .status-processing{border-color:#1565c0;color:#1565c0;background:#e3f2fd}
+    .status-shipped{border-color:#6a1b9a;color:#6a1b9a;background:#f3e5f5}
+    .status-delivered{border-color:#2e7d32;color:#2e7d32;background:#e8f5e9}
+    .status-cancelled{border-color:#c62828;color:#c62828;background:#ffebee}
+    .date-cell{font-size:0.78rem;color:var(--text-muted)}
+    .addr-cell{font-size:0.78rem;color:var(--text-secondary);max-width:160px}
+    .wa-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 10px;background:#25d366;color:#fff;border:none;border-radius:5px;font-size:0.75rem;cursor:pointer;text-decoration:none;font-family:var(--font-sans);font-weight:600;margin-top:4px}
+    .empty-state{text-align:center;padding:48px;color:var(--text-muted)}
+    .refresh-btn{padding:8px 16px;background:#1a237e;color:#fff;border:none;border-radius:6px;font-size:0.82rem;cursor:pointer;font-family:var(--font-sans);font-weight:600}
+    .badge-new{display:inline-block;background:#e53935;color:#fff;font-size:0.65rem;font-weight:700;padding:1px 5px;border-radius:3px;margin-left:4px;vertical-align:middle}
+  </style>
+</head>
+<body>
+<div class="dash-header">
+  <h1>🏭 Shri Shiv Enterprises — Owner Dashboard</h1>
+  <span id="lastUpdated"></span>
+</div>
+
+<div class="dash-main">
+  <!-- LOGIN SCREEN -->
+  <div class="login-screen" id="loginScreen">
+    <div class="login-box">
+      <div style="font-size:3rem;margin-bottom:12px">🔐</div>
+      <h2>Owner Login</h2>
+      <p>Apna password enter karein</p>
+      <input class="login-input" type="password" id="pwdInput" placeholder="Password" onkeydown="if(event.key==='Enter')doLogin()"/>
+      <button class="login-btn" onclick="doLogin()">Login →</button>
+      <div id="loginErr" style="color:#e53935;font-size:0.82rem;margin-top:10px"></div>
+    </div>
+  </div>
+
+  <!-- DASHBOARD CONTENT -->
+  <div id="dashContent" style="display:none">
+    <!-- STATS -->
+    <div class="stats-row" id="statsRow"></div>
+
+    <!-- ORDERS -->
+    <div class="orders-section">
+      <div class="orders-header">
+        <h2>📦 All Orders <span id="newBadge"></span></h2>
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div class="filter-row" id="filterRow">
+            <button class="filter-btn active" onclick="filterOrders('all',this)">All</button>
+            <button class="filter-btn" onclick="filterOrders('Pending',this)">Pending</button>
+            <button class="filter-btn" onclick="filterOrders('Processing',this)">Processing</button>
+            <button class="filter-btn" onclick="filterOrders('Shipped',this)">Shipped</button>
+            <button class="filter-btn" onclick="filterOrders('Delivered',this)">Delivered</button>
+          </div>
+          <button class="refresh-btn" onclick="loadOrders()">↻ Refresh</button>
+        </div>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Amount</th>
+              <th>Address</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="ordersBody"></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+let pwd = '';
+let allOrders = [];
+let currentFilter = 'all';
+
+function doLogin() {
+  pwd = document.getElementById('pwdInput').value;
+  if (!pwd) { document.getElementById('loginErr').textContent = 'Password enter karein'; return; }
+  loadOrders();
+}
+
+async function loadOrders() {
+  try {
+    const res = await fetch('/api/orders?pwd=' + encodeURIComponent(pwd));
+    if (res.status === 401) { document.getElementById('loginErr').textContent = 'Wrong password!'; return; }
+    allOrders = await res.json();
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashContent').style.display = 'block';
+    document.getElementById('lastUpdated').textContent = 'Updated: ' + new Date().toLocaleTimeString('en-IN');
+    renderStats();
+    renderOrders();
+  } catch(e) { document.getElementById('loginErr').textContent = 'Connection error. Retry.'; }
+}
+
+function renderStats() {
+  const total = allOrders.length;
+  const pending = allOrders.filter(o => o.status==='Pending').length;
+  const delivered = allOrders.filter(o => o.status==='Delivered').length;
+  const revenue = allOrders.filter(o => o.status!=='Cancelled').reduce((s,o) => s+o.total, 0);
+  document.getElementById('statsRow').innerHTML = `
+    <div class="stat-card"><div class="num">${total}</div><div class="lbl">Total Orders</div></div>
+    <div class="stat-card orange"><div class="num">${pending}</div><div class="lbl">Pending</div></div>
+    <div class="stat-card green"><div class="num">${delivered}</div><div class="lbl">Delivered</div></div>
+    <div class="stat-card green"><div class="num">₹${revenue.toLocaleString('en-IN')}</div><div class="lbl">Total Revenue</div></div>
+  `;
+  const newCount = allOrders.filter(o => o.status==='Pending').length;
+  document.getElementById('newBadge').innerHTML = newCount > 0 ? `<span class="badge-new">${newCount} NEW</span>` : '';
+}
+
+function filterOrders(f, el) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderOrders();
+}
+
+function renderOrders() {
+  const list = currentFilter === 'all' ? allOrders : allOrders.filter(o => o.status === currentFilter);
+  const tbody = document.getElementById('ordersBody');
+  if (!list.length) { tbody.innerHTML = '<tr><td colspan="8" class="empty-state">Koi orders nahi hain</td></tr>'; return; }
+  tbody.innerHTML = list.map(o => {
+    const d = new Date(o.createdAt);
+    const dateStr = d.toLocaleDateString('en-IN') + '<br/>' + d.toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'});
+    const itemsStr = o.items.map(i => `${i.name} ×${i.qty}`).join('<br/>');
+    const waMsg = encodeURIComponent(`Hello ${o.customerName}, aapka order ${o.id} (₹${o.total}) confirm ho gaya hai. Delivery jald hogi. - Shri Shiv Enterprises`);
+    const statusClass = 'status-' + o.status.toLowerCase();
+    return `<tr>
+      <td><div class="order-id">${o.id}</div></td>
+      <td><div class="customer-info"><div class="name">${o.customerName}</div><div class="phone">📞 ${o.phone}</div></div></td>
+      <td><div class="items-list">${itemsStr}</div></td>
+      <td><div class="amount">₹${o.total}</div><span class="payment-tag ${o.paymentMethod==='UPI'?'upi':''}">${o.paymentMethod}</span></td>
+      <td><div class="addr-cell">${o.address}, ${o.city} - ${o.pincode}</div></td>
+      <td><div class="date-cell">${dateStr}</div></td>
+      <td>
+        <select class="status-select ${statusClass}" onchange="updateStatus('${o.id}',this)" data-id="${o.id}">
+          <option ${o.status==='Pending'?'selected':''}>Pending</option>
+          <option ${o.status==='Processing'?'selected':''}>Processing</option>
+          <option ${o.status==='Shipped'?'selected':''}>Shipped</option>
+          <option ${o.status==='Delivered'?'selected':''}>Delivered</option>
+          <option ${o.status==='Cancelled'?'selected':''}>Cancelled</option>
+        </select>
+      </td>
+      <td>
+        <a href="https://wa.me/91${o.phone}?text=${waMsg}" target="_blank" class="wa-btn">💬 WA</a>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+async function updateStatus(id, el) {
+  const newStatus = el.value;
+  el.className = 'status-select status-' + newStatus.toLowerCase();
+  await fetch('/api/orders/'+id+'?pwd='+encodeURIComponent(pwd), {
+    method:'PATCH', headers:{'Content-Type':'application/json'},
+    body: JSON.stringify({status: newStatus})
+  });
+  const o = allOrders.find(x => x.id === id);
+  if (o) o.status = newStatus;
+  renderStats();
+}
+
+// Auto-refresh every 30 seconds
+setInterval(() => { if (document.getElementById('dashContent').style.display !== 'none') loadOrders(); }, 30000);
+</script>
+</body>
+</html>
